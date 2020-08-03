@@ -8,7 +8,7 @@ import {
   CircularProgress,
   CardMedia,
   Typography,
-  TextField,
+  InputBase,
 } from '@material-ui/core';
 import { makeStyles, fade } from '@material-ui/core/styles';
 import axios from 'axios';
@@ -29,21 +29,47 @@ const useStyles = makeStyles((theme) => ({
   cardContent: {
     textAlign: 'center',
   },
-  searchContainer: {
-    display: `flex`,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    paddingLeft: '20px',
-    paddingRight: '20px',
-    marginTop: '5px',
-    marginBottom: '5px',
-  },
-  searchIcon: {
-    alignSelf: 'flex-end',
-    marginBottom: '5px',
-  },
+
   searchInput: {
     width: '200px',
     margin: '5px',
+  },
+  search: {
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: fade(theme.palette.common.white, 0.25),
+    },
+    marginRight: theme.spacing(2),
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(3),
+      width: 'auto',
+    },
+  },
+  searchIcon: {
+    padding: theme.spacing(0, 2),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  inputRoot: {
+    color: 'inherit',
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      width: '20ch',
+    },
   },
 }));
 
@@ -68,7 +94,7 @@ const Pokedex = (props) => {
           newPokemonData[index + 1] = {
             id: index + 1,
             name: pokemon.name,
-            sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/${
+            sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
               index + 1
             }.png`,
           };
@@ -100,13 +126,28 @@ const Pokedex = (props) => {
     <>
       <AppBar position='static'>
         <Toolbar>
-          <div className={classes.searchContainer}>
+          {/* <div className={classes.searchContainer}>
             <SearchIcon className={classes.searchIcon} />
             <TextField
               onChange={handleSearchChange}
-              label='pokemon'
+              label='Search Pokemon...'
               variant='standard'
               className={classes.searchInput}
+            />
+          </div> */}
+          <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
+            </div>
+            <InputBase
+              placeholder='Search Pokemon…'
+              variant='standard'
+              onChange={handleSearchChange}
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+              inputProps={{ 'aria-label': 'search' }}
             />
           </div>
         </Toolbar>
