@@ -30,9 +30,8 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
   },
 
-  searchInput: {
-    width: '200px',
-    margin: '5px',
+  color: {
+    background: '#a60202',
   },
   search: {
     position: 'relative',
@@ -63,7 +62,6 @@ const useStyles = makeStyles((theme) => ({
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create('width'),
     width: '100%',
@@ -125,16 +123,7 @@ const Pokedex = (props) => {
   return (
     <>
       <AppBar position='static'>
-        <Toolbar>
-          {/* <div className={classes.searchContainer}>
-            <SearchIcon className={classes.searchIcon} />
-            <TextField
-              onChange={handleSearchChange}
-              label='Search Pokemon...'
-              variant='standard'
-              className={classes.searchInput}
-            />
-          </div> */}
+        <Toolbar className={classes.color}>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
